@@ -1,0 +1,68 @@
+! CmndShort.cmnd
+!   modified by Flip (pt267@cornell.edu) June 2012
+!   originally modified by Josh Berger from some other file
+! This file contains commands to be read in for a Pythia 8 run. 
+! Lines not beginning with a letter or digit are comments.
+
+
+! 1) Settings used in the main program.
+
+Main:numberOfEvents     = 10000          ! number of events to generate
+Main:timesAllowErrors   = 10            ! how many aborts before run stops
+Random:setSeed          = on            ! allow us to set a seed...
+Random:seed             = 0             ! ... and use a new seed for each run
+
+
+
+
+! 2) Settings related to output in init(), next() and stat().
+
+Init:showProcesses              = off   ! list all processes simulated
+Init:showChangedSettings        = off   ! list changed settings
+Init:showChangedParticleData    = off   ! list changed particle data
+
+Next:numberCount             = 1000  ! print message every n events
+Next:numberShowInfo          = 0    ! print event information n times
+Next:numberShowProcess       = 0    ! print process record n times
+Next:numberShowEvent         = 0    ! print event record n times
+
+
+
+! 3) Beam parameter settings. Values below agree with default ones.
+
+Beams:idA = 2212                    ! first beam, p = 2212, pbar = -2212
+Beams:idB = 2212                    ! second beam, p = 2212, pbar = -2212
+Beams:eCM = 8000.                   ! CM energy of collision
+
+
+
+! 4) Read SLHA spectrum
+SLHA:file = spcRun.spc
+
+
+
+! 5) Process selection 
+SUSY:gg2gluinogluino        = on      
+SUSY:qqbar2gluinogluino     = on
+
+
+
+! 6) Settings for the event generation process in the Pythia8 library.
+! Turn off showering and hadronization for this run
+PartonLevel:MPI = on               ! no multiparton interactions
+PartonLevel:ISR = on               ! no initial-state radiation 
+PartonLevel:FSR = on               ! no final-state radiation
+HadronLevel:Hadronize = on         ! no hadronization
+
+
+
+! 7) Setting particle properties
+!1000006:m0  = 3.0E+02               ! stop mass
+!1000021:m0  = 8.0E+02               ! gluino mass
+!5:mayDecay = no                     ! bottom quark shouldn't decay
+!15:mayDecay = no                    ! tau shouldn't decay
+
+! W decays only to leptons
+24:oneChannel = 1 0.333414504082683 0 -11 12    ! oneChannel--only decay channel
+24:addChannel = 1 0.333414504082683 0 -13 14    ! add this channel as well
+24:addChannel = 1 0.333170991834634 0 -15 16    ! and this channel too
